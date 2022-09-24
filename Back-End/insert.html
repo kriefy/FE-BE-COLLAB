@@ -7,15 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Ini Insert</h1>
-    <form action="/insert" method="post">
+    <h1>Insert</h1>
+    <form action="/api/mahasiswa" method="post">
         <label>NIM : </label><br>
         <input type="text" name="nim" placeholder="nim"><br>
         <label>Nama : </label><br>
         <input type="text" name="name" placeholder="nama"><br>
-        <input type="submit" value="Insert">
         <label>Role : </label><br>
         <input type="text" name="role" placeholder="role"><br>
-        <input type="submit" value="Insert">     
+        <input type="submit" value="Insert">
+    <form action="/delete"></form>    
+        <a href="/delete"><input type="submit" value="Delete"></a>
+    <form action="/update"></form>
+        <a href="/update"><input type="submit" value="Update"></a>
 </body>
 </html>

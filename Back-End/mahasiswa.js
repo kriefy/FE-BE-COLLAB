@@ -3,12 +3,16 @@ const {validationResult} = require('express-validator');
 exports.bodyParser = require('body-parser'); // parser middleware
 
 
-exports.getIndex = async (req,res) => {
-    res.sendFile(__dirname + '/index.html');
-}
-
 exports.getInsert = async (req,res) => {
     res.sendFile(__dirname + '/insert.html');
+}
+
+exports.getDelete = async (req,res) => {
+    res.sendFile(__dirname + '/delete.html');
+}
+
+exports.getUpdate = async (req,res) => {
+    res.sendFile(__dirname + '/update.html');
 }
 
 exports.getMahasiswa = async (req,res)=>{
@@ -37,7 +41,8 @@ exports.getMahasiswa = async (req,res)=>{
         .catch(err => {
             res.status(500).send({message : err.message || "Error while retriving mahasiswa information"})
         })
-    }    
+    }
+    
 }
 
 exports.Insert = async (req,res) => {

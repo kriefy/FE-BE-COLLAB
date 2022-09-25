@@ -1,0 +1,34 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "namestudent": "Arief Rahman",
+      "role": "Back-End",
+      "nim": 211511009
+    },
+    {
+      "id": 2,
+      "namestudent": "M Fatur Maulidan",
+      "role": "Back-End",
+      "nim": 211511020
+    },
+    {
+      "id": 3,
+      "namestudent": "Aldrin Rayhan Putra",
+      "role": "Database Infrastrukture",
+      "nim": 211511003
+    },
+    {
+      "id": 4,
+      "namestudent": "Devina Lusiana",
+      "role": "Front-End",
+      "nim": 211511010
+    },
+    {
+      "id": 5,
+      "namestudent": "Rofi Fauzan Al Habieb",
+      "role": "Front-End",
+      "nim": 211511029
+    }
+  ]
+}

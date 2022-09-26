@@ -64,7 +64,7 @@ exports.Insert = async (req,res) => {
                     message : "Error while creating insert operation"
                 })
             })
-        res.redirect('/')
+        // res.redirect('/')
     }
 }
 

@@ -18,24 +18,44 @@
           <table class="table table-dark table-striped">
             <thead>
               <tr>
-                <th scope="col">No</th>
+                <!-- <th scope="col">No</th> -->
                 <th scope="col">Nama</th>
                 <th scope="col">Role</th>
                 <th scope="col">NIM</th>
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-            <tbody v-for="student in students" v-bind:key="student.id">
-              <tr>
+            <tbody>
+              <tr v-for="student in students" v-bind:key="student._id">
                 <!-- <th scope="row">1</th> -->
-                <td>{{ student.id }}</td>
+                <!-- <td>{{ student.id }}</td> -->
                 <td>{{ student.namestudent }}</td>
                 <td>{{ student.role }}</td>
                 <td>{{ student.nim }}</td>
-                <td><button v-on:click="DeleteApi(student.id)">Delete</button></td>
+                <td><button v-on:click="DeleteApi(student._id)">Delete</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="input-data" style="background:rgb(26, 33, 43);">
+          <h2 style="color:white; font-size: 20px;">Add New Data</h2>
+          <form class="row g-3">
+            <div class="col-md-3">
+              <label for="validationDefault01" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="validationDefault01" name="studentname" v-model="namestudentis" required>
+            </div>
+            <div class="col-md-3">
+              <label for="validationDefault02" class="form-label">Role</label>
+              <input type="text" class="form-control" id="validationDefault02" name="role" v-model="roleis" required>
+            </div>
+            <div class="col-md-3">
+              <label for="validationDefault03" class="form-label">NIM</label>
+              <input type="text" class="form-control" id="validationDefault03" name="nim" v-model="nimis" required>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit" v-on:click="PostApi()">Submit</button>
+            </div>
+          </form>
         </div>
     </main>
   <footer>
@@ -72,14 +92,15 @@
 
 <script>
 import axios from "axios";
-const baseUrl = "http://localhost:3000/students";
+// const baseUrl = "http://localhost:3000/students";
+const baseUrl = "http://10.10.130.156:3000/api/mahasiswa";
 
 export default {
   name: 'App',
   data(){
     return{
       students:[],
-      no:'',
+      namestudentis:'',
       roleis:'',
       nimis:''
     }
@@ -96,31 +117,59 @@ export default {
           });
       },
       async PostApi() {
+        // await axios
+        //   .post(baseUrl,{namestudent:this.namestudentis, role:this.roleis, nim:this.nimis})
+        //   .then((resp) => {
+        //     console.log(resp);
+
+        //     this.students.push({
+        //       namestudent:this.namestudentis,
+        //       role:this.roleis, 
+        //       nim:this.nimis
+        //     })
+        //     this.namestudentis=''
+        //     this.roleis=''
+        //     this.nimis=''
+        //     // this.nameis='';
+        //     this.GetApi();
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+        const payload = {
+          nim: this.nimis,
+          namestudent : this.namestudentis,
+          role: this.roleis
+        }
+
+        const response = await axios.post(baseUrl, payload)
+
+        console.log(response)
+        this.students.push({
+          namestudent : this.namestudentis,
+          role: this.roleis,
+          nim: this.nimis
+        })
+
+        this.namestudentis = ''
+        this.roleis=''
+        this.nimis=''
+        this.GetApi()
+      },
+      async DeleteApi(_id) {
         await axios
-          .post(baseUrl,{name:this.nameis})
+          .delete(baseUrl+'/'+_id)
           .then((resp) => {
             console.log(resp);
-            this.nameis='';
             this.GetApi();
           })
           .catch((err) => {
             console.log(err);
           });
       },
-      async DeleteApi(id) {
+      async PutApi(nim,name) {
         await axios
-          .delete(baseUrl+id)
-          .then((resp) => {
-            console.log(resp);
-            this.GetApi();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-      async PutApi(id,name) {
-        await axios
-          .put(baseUrl+id,{name:name})
+          .put(baseUrl+nim,{name:name})
           .then((resp) => {
             console.log(resp);
             this.GetApi();
@@ -174,5 +223,24 @@ footer{
   margin-left: 5%;
   margin-bottom: 3%;
 }
+
+.input-data{
+  margin-left: 3%;
+  padding: 5px;
+  justify-content: space-between;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  width: 1400px;
+  padding: 10px;
+}
+
+.form-control{
+  width: 300px;
+}
+
+.form-label{
+  color: white;
+}
+
 
 </style>

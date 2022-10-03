@@ -16,21 +16,21 @@ exports.getUpdate = async (req,res) => {
 }
 
 exports.getMahasiswa = async (req,res)=>{
-    if(req.query.id){
-        const id = req.query.id
+    if(req.query.nim){
+        const nim = req.query.nim
 
-        Mahasiswa.findById(id)
+        Mahasiswa.findOne({nim: nim})
         .then(data => {
             if(!data){
                 res.status(404).send({
-                    message:`Not found Mahasiswa with id ${id}`
+                    message:`Not found Mahasiswa with nim ${nim}`
                 })
             } else {
                 res.send(data)
             }
         }).catch(err => {
             res.status(500).send({
-                message:`Error retrieving Mahasiswa with id ${id}`
+                message:`Error retrieving Mahasiswa with id ${nim }`
             })
         })
     } else {
@@ -69,12 +69,12 @@ exports.Insert = async (req,res) => {
 }
 
 exports.deleteMahasiswa = async (req,res) => {
-    const id = req.params.id
+    const nim = req.params.nim
 
-    Mahasiswa.findByIdAndDelete(id)
+    Mahasiswa.findOneAndDelete({nim:nim})
         .then(data => {
             if(!data){
-                res.status(404).send({message: `Cannot delete with id ${id}`})
+                res.status(404).send({message: `Cannot delete with nim ${nim}`})
             } else {
                 res.send({
                     message: 'Mahasiswa was deleted successfully'
@@ -82,7 +82,7 @@ exports.deleteMahasiswa = async (req,res) => {
             }  
         }).catch(err => {
             res.status(500).send({
-                message:"Could not delete mahasiswa with id = "+id
+                message:"Could not delete mahasiswa with nim = "+nim
             })
         })
 }
@@ -94,11 +94,11 @@ exports.updateMahasiswa = (req,res) => {
             .send({message:'Data can not be empty'})
     }
 
-    const id = req.params.id
-    Mahasiswa.findByIdAndUpdate(id, req.body)
+    const nim = req.params.nim
+    Mahasiswa.findOneAndUpdate({nim: nim}, req.body)
         .then(data => {
             if(!data){
-                res.status(404).send({message:`Cannot Update user with ${id}. Maybe user not found`})
+                res.status(404).send({message:`Cannot Update user with ${nim}. Maybe user not found`})
             }else{
                 res.send(data)
             }  

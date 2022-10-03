@@ -1,6 +1,8 @@
 const express = require('express') //Download npm install express
 const app = express();
+const cors = require('cors')
 
+app.use(cors())
 
 const validate = require('./validate.js') //Download express-validator
 const mahasiswaController = require('./mahasiswa.js')
@@ -23,10 +25,10 @@ app.get('/delete', mahasiswaController.getDelete)
 app.post('/api/mahasiswa', validate.insertMahasiswaValidate, mahasiswaController.Insert)
 
 // This function is called update (Update Mahasiswa)
-app.put('/api/mahasiswa/:id', mahasiswaController.updateMahasiswa)
+app.put('/api/mahasiswa/:nim', mahasiswaController.updateMahasiswa)
 
 // This function is called delete (Delete Mahasiswa)
-app.delete('/api/mahasiswa/:id', mahasiswaController.deleteMahasiswa)
+app.delete('/api/mahasiswa/:nim', mahasiswaController.deleteMahasiswa)
 
 // This function is called data from database (Read Mahasiswa)
 app.get('/api/mahasiswa', mahasiswaController.getMahasiswa)
